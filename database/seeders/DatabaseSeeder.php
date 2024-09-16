@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Task;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
@@ -30,5 +32,19 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
+
+
+        $this->call(ClassesSeeder::class);
+        $this->call(SectionsSeeder::class);
+        $this->call(StudentsSeeder::class);
+        
+        // $categories = Category::factory(10)->create();
+        // User::factory(5)
+        //     ->has(
+        //         Product::factory(30)->state(function () use ($categories) {
+        //             return ['category_id' => $categories->random()->id];
+        //         })
+        //     )
+        //     ->create();
     }
 }

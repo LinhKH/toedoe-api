@@ -67,4 +67,9 @@ class User extends Authenticatable
             ->latest()
             ->get();
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
