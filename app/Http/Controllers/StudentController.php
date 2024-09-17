@@ -10,7 +10,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $item_per_page = request('item_per_page', 10);
+        $item_per_page = request('item_per_page');
 
         if (isset($item_per_page)) {
             $students = Student::studentsQuery()->paginate($item_per_page);

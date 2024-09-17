@@ -17,34 +17,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $start = now()->startOfMonth()->subMonthsNoOverflow();
-        $end = now();
-        $period = CarbonPeriod::create($start, '1 day', $end);
+        // $start = now()->startOfMonth()->subMonthsNoOverflow();
+        // $end = now();
+        // $period = CarbonPeriod::create($start, '1 day', $end);
 
-        User::factory(5)->create()->each(function ($user) use($period) {
-            foreach ($period as $date) {
-                $date->hour(rand(0, 23))->minute(rand(0, 6) * 10);
+        // User::factory(5)->create()->each(function ($user) use($period) {
+        //     foreach ($period as $date) {
+        //         $date->hour(rand(0, 23))->minute(rand(0, 6) * 10);
 
-                Task::factory()->create([
-                    'user_id' => $user->id,
-                    'created_at' => $date,
-                    'updated_at' => $date
-                ]);
-            }
-        });
+        //         Task::factory()->create([
+        //             'user_id' => $user->id,
+        //             'created_at' => $date,
+        //             'updated_at' => $date
+        //         ]);
+        //     }
+        // });
 
 
-        $this->call(ClassesSeeder::class);
-        $this->call(SectionsSeeder::class);
-        $this->call(StudentsSeeder::class);
+        // $this->call(ClassesSeeder::class);
+        // $this->call(SectionsSeeder::class);
+        // $this->call(StudentsSeeder::class);
         
-        // $categories = Category::factory(10)->create();
-        // User::factory(5)
-        //     ->has(
-        //         Product::factory(30)->state(function () use ($categories) {
-        //             return ['category_id' => $categories->random()->id];
-        //         })
-        //     )
-        //     ->create();
+        $categories = Category::factory(10)->create();
+        User::factory(5)
+            ->has(
+                Product::factory(50)->state(function () use ($categories) {
+                    return ['category_id' => $categories->random()->id];
+                })
+            )
+            ->create();
     }
 }

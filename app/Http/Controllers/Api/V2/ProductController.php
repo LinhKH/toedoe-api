@@ -19,6 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $item_per_page = request('item_per_page', 10);
         $products = auth()->user()
             ->products()
             ->with('category')
@@ -39,13 +40,11 @@ class ProductController extends Controller
                 $direction = substr($sortBy, 0, 1) === '-' ? 'desc' : 'asc';
                 $query->orderBy($field, $direction);
             })
-            ->paginate(10)
-            ->withQueryString();
+            ->paginate($item_per_page);
 
         return response()->json([
             'products' => ProductResource::collection($products),
-            'categories' => CategoryResource::collection(Category::orderBy('name')->get()),
-            'query' => (object) request()->query()
+            'categories' => CategoryResource::collection(Category::orderBy('name')->get())
         ]);
     }
 
